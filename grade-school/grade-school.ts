@@ -1,10 +1,10 @@
 class GradeSchool {
-  private _studentRoster: Map<string, string[]>;
+  private readonly _studentRoster: Map<string, string[]>;
   constructor() {
     this._studentRoster = new Map();
   }
 
-  studentRoster = () => {
+  studentRoster = (): Map<string, string[]> => {
     return this._studentRoster;
   };
 
@@ -19,8 +19,10 @@ class GradeSchool {
     }
 
     this._studentRoster.get(grade.toString())
-      ? this._studentRoster.get(grade.toString())?.push(name)
+      ? this._studentRoster.get(grade.toString())?.unshift(name)
       : this._studentRoster.set(grade.toString(), [name]);
+    const sortedArray = this._studentRoster.get(grade.toString())?.sort();
+    this._studentRoster.set(grade.toString(), sortedArray!);
   };
 
   studentsInGrade = (grade: number): string[] => {
